@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Comment from './Comment.js';
 import './Post.css';
+import Config from './config.json';
 
 class Post extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ class Post extends Component {
   }
 
   getData() {
-    fetch(`https://hacker-news.firebaseio.com/v0/item/${this.state.id}.json`)
+    fetch(Config.baseUrl + this.state.id + '.json')
       .then(res => res.json())
       .then(
         (resJson) => {

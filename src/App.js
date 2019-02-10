@@ -3,11 +3,13 @@ import './App.css';
 import Posts from './Posts.js';
 
 class App extends Component {
+
   render() {
+    const hnImg = <img src="y18.gif" alt="hacker news"></img>;
     return (
       <div className="page">
         <header className="hn-header">
-          <img src="y18.gif" ></img>
+          {hnImg}
           <span className="hn-title">Hacker News</span>
         </header>
         <div className="App">
