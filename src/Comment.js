@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Comment.css';
+import Config from './config.json';
 
 class Comment extends Component {
   constructor(props) {
@@ -18,15 +19,14 @@ class Comment extends Component {
   }
 
   getData() {
-    fetch(`https://hacker-news.firebaseio.com/v0/item/${this.state.id}.json`)
+    fetch(Config.baseUrl + this.state.id + '.json')
       .then(res => res.json())
       .then(
         (resJson) => {
           if (resJson.text) {
-            let text = resJson.text;
             this.setState({
               by: resJson.by,
-              text: text,
+              text: resJson.text,
               time: resJson.time
             });
           }
@@ -41,12 +41,6 @@ class Comment extends Component {
 
   componentDidMount() {
     this.getData();
-  }
-
-  cleanText(txt) {
-    if (typeof txt !== 'undefined') {
-      return txt.replace(/<\/?[^>]+(>|$)/g, "\n");
-    }
   }
 
   render() {

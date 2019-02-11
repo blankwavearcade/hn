@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Post from './Post.js';
+import Config from './config.json';
 
 class Posts extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Posts extends Component {
 
   // Basically copy pasta from reactjs.org
   componentDidMount() {
-    fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
+    fetch(Config.topStoriesUrl)
       .then(res => res.json())
       .then(
         (resJson) => {
