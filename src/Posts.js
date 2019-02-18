@@ -9,16 +9,21 @@ class Posts extends Component {
       newPosts: [],
       page: 0
     }
+
   }
 
   // Basically copy pasta from reactjs.org
   componentDidMount() {
-    fetch(Config.topStoriesUrl)
-      .then(res => res.json())
+    this.getData();
+  }
+
+  getData() {
+    fetch(Config.topStoriesUrl + this.state.page)
+      .then((res)  => res.json())
       .then(
         (resJson) => {
           this.setState({
-            newPosts: resJson.sort((a,b) => b - a)
+            newPosts: resJson
           });
       },
       (error) => {
@@ -31,20 +36,16 @@ class Posts extends Component {
 
   render() {
     const {newPosts} = this.state;
-    var posts = [];
-    // Pagination should be considered...
-    for (let i = 0; i < 10; i++) {
-      if (typeof newPosts[i] !== 'undefined') {
-        posts.push(newPosts[i]);
-      }
-    }
+    const previous = <span>previous</span>;
+    const next = <span>next</span>;
     return (
       <div className="post-container" >
         <ul>
-          {posts.map((id, key) => (
+          {newPosts.map((id, key) => (
             <Post key={key} id={id} />
           ))}
         </ul>
+        {previous} {next}
       </div>
     );
   }

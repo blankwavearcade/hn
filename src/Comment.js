@@ -7,10 +7,13 @@ class Comment extends Component {
     super(props);
 
     this.state = {
-      id: props.commentId,
       by: null,
+      id: props.commentId,
+      kids: [],
+      parent: null,
       text: null,
       time: null,
+      type: null,
       error: null
     };
 
@@ -19,15 +22,19 @@ class Comment extends Component {
   }
 
   getData() {
-    fetch(Config.baseUrl + this.state.id + '.json')
+    fetch(Config.baseUrl + this.state.id)
       .then(res => res.json())
       .then(
         (resJson) => {
           if (resJson.text) {
             this.setState({
               by: resJson.by,
+              id: this.state.id,
+              kids: resJson.kids,
+              parent: resJson.parent,
               text: resJson.text,
-              time: resJson.time
+              time: resJson.time,
+              type: resJson.type
             });
           }
       },
