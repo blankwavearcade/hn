@@ -8,12 +8,16 @@ class Post extends Component {
     super(props);
 
     this.state = {
-      id: props.id,
       by: null,
+      descendants: 0,
+      id: props.id,
+      kids: [],
+      scores: 0,
+      time: null,
       title: null,
+      type: null,
       url: null,
       error: null,
-      kids: null,
       iconClass: 'fas fa-plus',
       postClass: 'hidden',
       hasKids: false
@@ -53,15 +57,19 @@ class Post extends Component {
   }
 
   getData() {
-    fetch(Config.baseUrl + this.state.id + '.json')
+    fetch(Config.baseUrl + this.state.id)
       .then(res => res.json())
       .then(
         (resJson) => {
           this.setState({
             by: resJson.by,
+            descendants: resJson.descendants,
+            kids: resJson.kids,
+            score: resJson.score,
+            time: resJson.time,
             title: resJson.title,
-            url: resJson.url,
-            kids: resJson.kids
+            type: resJson.story,
+            url: resJson.url
           });
       },
       (error) => {

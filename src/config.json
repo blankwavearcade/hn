@@ -1,4 +1,4 @@
 {
-  "topStoriesUrl": "https://hacker-news.firebaseio.com/v0/topstories.json",
-  "baseUrl": "https://hacker-news.firebaseio.com/v0/item/"
+  "topStoriesUrl": "/api/top/",
+  "baseUrl": "/api/"
 }
