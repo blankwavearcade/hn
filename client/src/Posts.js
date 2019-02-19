@@ -36,8 +36,8 @@ class Posts extends Component {
 
   render() {
     const {newPosts} = this.state;
-    const previous = <span>previous</span>;
-    const next = <span>next</span>;
+/*    const previous = <span>previous</span>;
+    const next = <span>next</span>;*/
     return (
       <div className="post-container" >
         <ul>
@@ -45,7 +45,6 @@ class Posts extends Component {
             <Post key={key} id={id} />
           ))}
         </ul>
-        {previous} {next}
       </div>
     );
   }
