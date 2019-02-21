@@ -9,12 +9,18 @@ class Posts extends Component {
       newPosts: [],
       page: 0
     }
-
+    this.handlePreviousClick = this.handlePreviousClick.bind(this);
+    this.handleNextClick = this.handleNextClick.bind(this);
   }
 
-  // Basically copy pasta from reactjs.org
   componentDidMount() {
     this.getData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.page !== this.state.page) {
+      this.getData();
+    }
   }
 
   getData() {
@@ -34,10 +40,22 @@ class Posts extends Component {
     )
   }
 
+  handlePreviousClick() {
+    this.setState({
+      page: this.state.page - 1 > 0 ? this.state.page-1 : this.state.page
+    });
+  }
+
+  handleNextClick(e) {
+    this.setState({
+      page: this.state.page + 1 < 9 ? this.state.page+1 : this.state.page
+    });
+  }
+
   render() {
-    const {newPosts} = this.state;
-/*    const previous = <span>previous</span>;
-    const next = <span>next</span>;*/
+    const {newPosts, page} = this.state;
+    const previous = <span onClick={this.handlePreviousClick} page={page !== 0 ? page - 1 : 0}>Previous</span>;
+    const next = <span onClick={this.handleNextClick} page={page+1}> Next </span>;
     return (
       <div className="post-container" >
         <ul>
@@ -45,6 +63,7 @@ class Posts extends Component {
             <Post key={key} id={id} />
           ))}
         </ul>
+        {previous} {page + 1} {next}
       </div>
     );
   }

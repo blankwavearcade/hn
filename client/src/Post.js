@@ -84,6 +84,12 @@ class Post extends Component {
     this.getData();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.id !== this.props.id) {
+      this.getData();
+    }
+  }
+
   render() {
     let commentList = null;
     if (this.state.kids) {
