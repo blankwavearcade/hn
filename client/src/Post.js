@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Comment from './Comment.js';
+import Comment from './Comments.js';
 import './Post.css';
 import Config from './config.json';
 
@@ -20,7 +20,8 @@ class Post extends Component {
       error: null,
       iconClass: 'fas fa-plus',
       postClass: 'hidden',
-      hasKids: false
+      hasKids: false,
+      isOpen: false
     }
 
 
@@ -50,9 +51,9 @@ class Post extends Component {
     let iconClass = this.getIconClass();
     let postClass = this.getPostClass();
     this.setState(state => ({
-      isPostOpen: !state.isPostOpen,
       iconClass: iconClass,
-      postClass: postClass
+      postClass: postClass,
+      isOpen: !state.isOpen
     }));
   }
 
@@ -91,19 +92,16 @@ class Post extends Component {
   }
 
   render() {
-    let commentList = null;
-    if (this.state.kids) {
-      commentList = this.state.kids.map((commentId, i) => (
-        <Comment key={i} commentId={commentId} />
-      ));
-    }
+    console.log(this.state);
+    let {iconClass, title, by, url, kids, postClass, isOpen} = this.state;
+    console.log(isOpen && kids);
     return (
       <li>
-         <i className={this.state.iconClass} onClick={this.handleIconClick} ></i>
-         <a href={this.state.url}>{this.state.title}</a>
-         <span className="posted-by"> Posted By: {this.state.by}</span>
-         <div className={this.state.postClass}>
-          {commentList !== null ? commentList : false }
+         <i className={iconClass} onClick={this.handleIconClick} ></i>
+         <a href={url}>{title}</a>
+         <span className="posted-by"> Posted By: {by}</span>
+         <div className={postClass}>
+          { isOpen && kids ? <Comment comments={kids} /> : null }
          </div>
       </li>
     );

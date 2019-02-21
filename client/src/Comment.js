@@ -50,13 +50,15 @@ class Comment extends Component {
     this.getData();
   }
 
+  // Comments are returned in html.
   render() {
+    let {by, text} = this.state;
     return (
       <div className="comment-container">
         <div className="user-head">
-          <span className="user">Posted By: {this.state.by}</span>
+          <span className="user">Posted By: {by}</span>
         </div>
-        <div className="comment" dangerouslySetInnerHTML={{__html: this.state.text}} />
+        <div className="comment" dangerouslySetInnerHTML={{__html: text}} />
         <br />
       </div>
     );
